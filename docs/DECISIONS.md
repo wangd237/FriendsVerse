@@ -27,6 +27,8 @@
 
 - 已提出 [World & Interaction Design](WORLD_INTERACTION.md) v0.1.0：四个主要互动地点、上午/下午/晚上时段、先意向后会面、主动社交/有限对话、信息隔离、跨集未完事项与九项验收场景。**仍是待原型检验的设计提案，不自动升级为用户已确认决策。**
 
+- 已提出 [Story Prototype Technical Design](STORY_PROTOTYPE_TECHNICAL_DESIGN.md) v0.1.0：推荐 Python 3.11+ / Pydantic / SQLite / OpenAI-compatible API / pytest / CLI 单进程闭环；一个时段中逐角色决策、世界规则执行、事实日志、关系证据、剧本剪辑和整集原子提交；以 T0 假模型、T1 两人真实交互、T2 六人单集、T3 七集验证逐步推进。**这是实施候选方案，待技术原型验证后再决定是否作为最终架构。**
+
 以上建议写在 PRD 里作为当前设计基线，可在下一次产品评审中修订。
 
 ## 未解决（Open）
@@ -42,6 +44,8 @@
 9. 角色人格草案及 15 组关系起点的具体偏好是否认可？尤其是 Ross → Rachel 的可选个人好感种子。
 10. World & Interaction 的三个时段、环境事件频率及对话轮次预算如何根据样片调校？
 11. 是否首版只允许当面交流，跨地点的电话/短信留待 P1？
+12. T0/T1 的 spike 是否验证采用 Python 最小运行时优于直接 Fork TypeScript social-agent-sim？
+13. 选用的模型能否稳定提供经过本地 Pydantic 校验的结构化动作，以及成本是否能支持七集生成？
 
 ## 更新规则
 
