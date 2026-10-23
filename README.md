@@ -5,9 +5,9 @@
 
 ## 项目状态
 
-**阶段：产品设计 / Story Prototype 技术方案已形成、功能尚未实现**（2026-10-23）。
+**阶段：T0 双角色原型已实现并通过 CI；T1 真实 LLM 仍待实际验收**（2026-10-23）。
 
-本仓库目前用于沉淀和持续迭代产品需求；**尚无可运行的 FriendsVerse 应用，也未完成 Agent 模拟或剧集生成**。设计中的功能不应被视为已实现。
+本仓库已经加入第一阶段**两角色 T0/T1 最小代码**，包括 CLI、动作校验、独立记忆、SQLite 持久化和可选真实 LLM 适配器。尚未实现六角色完整故事世界、关系演化引擎或正式剧集剪辑。确定性 FakeClient 测试不代表真实 LLM 已通过验收。
 
 ## 产品概念
 
@@ -27,12 +27,29 @@
 - [Story Prototype 详细产品规格](docs/STORY_PROTOTYPE.md)：首个七集原型的角色、事件、叙事链路、关系证据与验收。
 - [Character Design：六人角色与关系](docs/CHARACTER_DESIGN.md)：角色动机、行为倾向、15 组初始关系、独立认知及人物验证情境。
 - [World & Interaction Design](docs/WORLD_INTERACTION.md)：社区场景、时段推进、主动社交、会面、有限对话与跨集连续性。
+- [Story Prototype Technical Design](docs/STORY_PROTOTYPE_TECHNICAL_DESIGN.md)：T0–T3 工程模块、数据协议和实施顺序。
+- [Coding T0–T1 实施说明](docs/T0_T1_IMPLEMENTATION.md)：已实现范围、安装运行、真实 LLM 验收与未完成能力。
 - [Story Prototype Technical Design](docs/STORY_PROTOTYPE_TECHNICAL_DESIGN.md)：推荐技术栈、模块/数据边界、执行及持久化流程、T0–T3 验收计划。
+
+## 运行最小双人演示
+
+Python 3.11+：
+
+~~~bash
+python -m pip install -e ".[dev]"
+python -m pytest -q
+python -m friendsverse init --db friendsverse.db
+python -m friendsverse next --db friendsverse.db --provider fake
+python -m friendsverse next --db friendsverse.db --provider fake
+python -m friendsverse inspect --db friendsverse.db
+~~~
+
+**注意：fake 输出是固定台词，仅用于 T0 运行/记忆测试。** 真实 T1 请配置本机环境变量或当前仓库 GitHub Actions secrets 的 LLM_API_KEY、LLM_MODEL_ID（可选 LLM_BASE_URL），运行两次 `--provider live`。详细步骤见 [实施说明](docs/T0_T1_IMPLEMENTATION.md)。
 
 ## 当前里程碑
 
 1. **产品需求基线**：固化定位、观看方式、优先级和核心用户流程（文档阶段）。
-2. **Story Prototype**：运行一个虚拟星期，生成七集可阅读剧本及可追溯的人物关系变化。
+2. **Story Prototype**：T0 两角色规则/记忆闭环完成；T1 真实模型效果待验收；T2 六人单集和 T3 七集验证尚未实现。
 3. **MVP Web 应用**：剧集大厅、剧本阅读器、关系视图、手动逐集推进。
 4. **体验验证与迭代**：基于角色辨识度、幽默度、连贯性、关系可信度和追剧意愿改进。
 
@@ -51,4 +68,4 @@
 - [social-agent-sim](https://github.com/marcopatzelt/social-agent-sim)：Tick 驱动的多角色社会模拟。
 - [Covel](https://github.com/ackness/covel)：角色、游戏世界、记忆与插件式叙事运行时。
 
-技术选型及是否复用某个项目**尚未确定**。
+目前 T0/T1 采用 Python、Pydantic、SQLite 和 OpenAI-compatible API 的最小实现；后续是否复用其他框架仍可在实测后评估。
