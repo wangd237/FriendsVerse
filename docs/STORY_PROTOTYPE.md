@@ -1,13 +1,16 @@
 # FriendsVerse — Story Prototype 详细产品规格
 
-**版本**：v0.3.0（世界与交互设计衔接）  
+**版本**：v0.4.0（技术方案衔接）  
 **日期**：2026-10-23  
 **状态**：待开发；不代表已完成模拟或验收  
-**上位需求**：[PRD.md](PRD.md) · 角色设计：[CHARACTER_DESIGN.md](CHARACTER_DESIGN.md) · 世界与交互：[WORLD_INTERACTION.md](WORLD_INTERACTION.md) · 决策来源：[DECISIONS.md](DECISIONS.md)
+**上位需求**：[PRD.md](PRD.md) · 角色设计：[CHARACTER_DESIGN.md](CHARACTER_DESIGN.md) · 世界与交互：[WORLD_INTERACTION.md](WORLD_INTERACTION.md) · 技术设计：[STORY_PROTOTYPE_TECHNICAL_DESIGN.md](STORY_PROTOTYPE_TECHNICAL_DESIGN.md) · 决策来源：[DECISIONS.md](DECISIONS.md)
 
 > 本文是第一阶段 Story Prototype 的实施前产品规格，用于回答「什么内容应由 Agent 自主产生、观众最后看到什么、怎样评估体验」。具体模型、数据库、调度框架仍不在本阶段锁定。
 
 ## 1. 阶段目标与范围
+
+工程实施细节请参考 **[Story Prototype Technical Design](STORY_PROTOTYPE_TECHNICAL_DESIGN.md)**，该文给出候选 Python/SQLite 实现、角色动作契约、模拟/剪辑/提交的一致性边界与 T0–T3 递进验收。此文件仍作为七集内容和体验验收的主规格，不应被技术选型取代。
+
 
 **核心验证问题**：6 位角色在有初始人格、个人记忆、独立认知与共同环境的条件下，是否能生成值得连续观看的轻喜剧情景剧，并出现**有证据的跨集关系演化**？
 
@@ -209,6 +212,7 @@ Web 剧集大厅和关系图可暂用文档/简单查看器替代；不做视频
 
 | 版本 | 日期 | 修改 |
 |---|---|---|
+| v0.4.0 | 2026-10-23 | 关联 Story Prototype Technical Design，明确产品与技术规格分层，未启动实现 |
 | v0.3.0 | 2026-10-23 | 引用 World & Interaction Design，补充社交与会面机制的独立产品规格 |
 | v0.2.0 | 2026-10-23 | 增加 Character Design 链接，将人物细节与实验规则分层维护 |
 | v0.1.0 | 2026-10-23 | 首次定义七集原型的初始人设、关系证据、事件机制、内容契约、实验流程及验收标准 |
