@@ -1,7 +1,7 @@
 # Coding T0–T1 Implementation
 
 **阶段**：最小双人垂直切片（不是完整的 FriendsVerse）  
-**分支**：feat/story-prototype-t0-t1  
+**实现分支**：feat/story-prototype-t0-t1（已通过 PR #1 合并到 main）  
 **日期**：2026-10-23
 
 ## 已实现
