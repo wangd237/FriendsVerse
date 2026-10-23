@@ -142,7 +142,11 @@ def simulate(
         number=original.episode_no + 1, title=title, script=script,
         events=events, world_version_from=original.version,
         world_version_to=original.version + 1,
-        provider=provider, rejected_actions=rejected
+        provider=provider, rejected_actions=rejected,
+        prior_memory_ids={
+            actor: [m.event_id for m in original.memories[actor][-24:]]
+            for actor in ("joey", "chandler")
+        },
     )
     work.version += 1
     work.episode_no += 1
