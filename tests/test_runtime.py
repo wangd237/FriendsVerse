@@ -65,6 +65,10 @@ def test_memory_reappears_next_episode_and_survives_restart(tmp_path):
         after, ep2 = simulate(before, fresh_client, "fake")
         store.commit(before, after, ep2)
         assert ep2.number == 2
+        prior_ids = {e.id for e in ep1.events}
+        assert prior_ids
+        for actor in ("joey", "chandler"):
+            assert set(ep2.prior_memory_ids[actor]) & prior_ids
         assert any("试镜" in m["text"] for m in fresh_client.calls[0]["own_memory"])
         assert len(store.episodes()) == 2
     with Store(db) as reopened:

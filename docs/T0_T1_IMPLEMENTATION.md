@@ -1,7 +1,7 @@
 # Coding T0–T1 Implementation
 
 **阶段**：最小双人垂直切片（不是完整的 FriendsVerse）  
-**分支**：feat/story-prototype-t0-t1  
+**实现分支**：feat/story-prototype-t0-t1（已通过 PR #1 合并到 main）  
 **日期**：2026-10-23
 
 ## 已实现
@@ -44,7 +44,7 @@ python -m friendsverse next --db friendsverse-live.db --provider live
 python -m friendsverse inspect --db friendsverse-live.db
 ~~~
 
-也可以在当前 GitHub 仓库的 Actions secrets 中配置以上字段后，手动运行 **T1 live LLM validation (manual)**。该工作流不会因普通 push 自动消耗真实模型 Token。它验证两集均来自 live 适配器、均有真实对白和可恢复的个人记忆；角色辨识度和是否真正利用前情仍需人工审查剧本。
+也可以在当前 GitHub 仓库的 Actions secrets 中配置以上字段后，手动运行 **T1 live LLM validation (manual)**。该工作流不会因普通 push 自动消耗真实模型 Token。它验证两集均来自 live 适配器、均有真实对白和可恢复的个人记忆，并检查第二集 `prior_memory_ids` 是否包含上一集的真实事件 ID。这能证明前情已经进入角色的输入上下文，**但不等于模型确实理解或利用了前情**；角色辨识度和前情引用的自然程度仍需人工审查剧本。
 
 ## T0/T1 验收边界
 
