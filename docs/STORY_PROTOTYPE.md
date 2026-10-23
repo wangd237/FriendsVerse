@@ -1,9 +1,9 @@
 # FriendsVerse — Story Prototype 详细产品规格
 
-**版本**：v0.2.0（角色设计衔接）  
+**版本**：v0.3.0（世界与交互设计衔接）  
 **日期**：2026-10-23  
 **状态**：待开发；不代表已完成模拟或验收  
-**上位需求**：[PRD.md](PRD.md) · 角色设计：[CHARACTER_DESIGN.md](CHARACTER_DESIGN.md) · 决策来源：[DECISIONS.md](DECISIONS.md)
+**上位需求**：[PRD.md](PRD.md) · 角色设计：[CHARACTER_DESIGN.md](CHARACTER_DESIGN.md) · 世界与交互：[WORLD_INTERACTION.md](WORLD_INTERACTION.md) · 决策来源：[DECISIONS.md](DECISIONS.md)
 
 > 本文是第一阶段 Story Prototype 的实施前产品规格，用于回答「什么内容应由 Agent 自主产生、观众最后看到什么、怎样评估体验」。具体模型、数据库、调度框架仍不在本阶段锁定。
 
@@ -65,6 +65,9 @@ Web 剧集大厅和关系图可暂用文档/简单查看器替代；不做视频
 - 不预置「指定人物必须成为情侣」或「第 N 集吵架」这类结果性目标。
 
 ### 3.3 地点与时间
+
+世界地图、时段、主动社交、先产生意向再解析会面的规则及无事件日验证见 **[World & Interaction Design](WORLD_INTERACTION.md)**。这里保留原型高层约束，避免重复指定另一套会面逻辑。
+
 最小地图：Monica/Rachel 公寓、Chandler/Joey 公寓、公共走廊、Central Perk；Ross/Phoebe 的家及工作场所可作为**抽象地点**，无须渲染完整地图。
 
 时间：每次生成一集代表一个虚拟日；内部可划分早晨/下午/晚上，平淡日程用规则推进，不对每个小时的每位角色强制发起 LLM 调用。角色需在可见或可通信时才发生有效互动。
@@ -206,5 +209,6 @@ Web 剧集大厅和关系图可暂用文档/简单查看器替代；不做视频
 
 | 版本 | 日期 | 修改 |
 |---|---|---|
+| v0.3.0 | 2026-10-23 | 引用 World & Interaction Design，补充社交与会面机制的独立产品规格 |
 | v0.2.0 | 2026-10-23 | 增加 Character Design 链接，将人物细节与实验规则分层维护 |
 | v0.1.0 | 2026-10-23 | 首次定义七集原型的初始人设、关系证据、事件机制、内容契约、实验流程及验收标准 |
