@@ -39,5 +39,8 @@ jobs:
               assert all(e.provider == 'live' for e in episodes)
               assert all(any(ev.type == 'speak' for ev in e.events) for e in episodes), 'No live dialogue in at least one episode'
               assert len(state.memories['joey']) > 0 and len(state.memories['chandler']) > 0
+              first_ids = {ev.id for ev in episodes[0].events}
+              for actor in ('joey', 'chandler'):
+                  assert set(episodes[1].prior_memory_ids[actor]) & first_ids, f'{actor} did not receive prior episode memories'
               print('Live T1 transport and cross-episode memory checks passed. Review dialogue quality manually.')
           PY
