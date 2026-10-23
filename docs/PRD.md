@@ -1,8 +1,8 @@
 # FriendsVerse — 产品需求文档（PRD）
 
-**版本**：v0.5.0（World & Interaction 机制衔接）  
+**版本**：v0.6.0（Story Prototype 技术方案衔接）  
 **更新日期**：2026-10-23  
-**状态**：产品基线、Story Prototype、Character Design、World & Interaction 设计稿已建立；软件尚未开发  
+**状态**：产品与 Story Prototype 技术设计已形成；软件尚未开发  
 **负责人视角**：产品与用户体验优先，暂不锁定技术框架
 
 ## 1. 产品概要
@@ -125,6 +125,9 @@ Joey 的试镜、Monica 的晚宴、咖啡馆设施损坏、寄错快递、Rache
 
 ## 6. Story Prototype 验收（首个里程碑）
 
+工程实现的推荐模块、领域数据、生成事务/失败恢复、模型调用和 T0–T3 分阶段验收见 **[Story Prototype Technical Design](STORY_PROTOTYPE_TECHNICAL_DESIGN.md)**。Python/SQLite 等是当前候选实现，不代表产品层已锁定永久技术栈。
+
+
 详细角色基线、故事机会池、关系演化、单集生成契约、七集实验安排和 Go/No-Go 标准见 **[Story Prototype 详细产品规格](STORY_PROTOTYPE.md)**。本节是简明验收摘要；详细的原型行为以该规格说明为准，不意味着已决定底层技术选型。
 
 **测试目标：连续运行一个虚拟星期并得到七集有关联的剧本。**
@@ -163,6 +166,7 @@ Joey 的试镜、Monica 的晚宴、咖啡馆设施损坏、寄错快递、Rache
 
 | 版本 | 日期 | 变化 |
 |---|---|---|
+| v0.6.0 | 2026-10-23 | 衔接 Story Prototype Technical Design，提出轻量单进程实施方案、一次剧集原子提交和 T0–T3 验收路径，尚未编码 |
 | v0.5.0 | 2026-10-23 | 衔接 World & Interaction Design，定义小地图、相遇规则、社交主动性、信息隔离与反流水账测试 |
 | v0.4.0 | 2026-10-23 | 衔接 Character Design 六角色人格与初始关系方案，明确人物测试及有向主观认知，不锁死数值或剧情 |
 | v0.3.0 | 2026-10-23 | 衔接 Story Prototype 详细规格，明确原型输出、关系证据与七集实验为设计提案；未启动编码 |
