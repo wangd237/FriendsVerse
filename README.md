@@ -25,6 +25,7 @@
 - [产品需求文档（PRD）](docs/PRD.md)：产品定位、用户旅程、功能范围、规则、验收与阶段计划。
 - [产品决策记录](docs/DECISIONS.md)：已确认决策、设计原则及尚未确定的问题。
 - [Story Prototype 详细产品规格](docs/STORY_PROTOTYPE.md)：首个七集原型的角色、事件、叙事链路、关系证据与验收。
+- [Character Design：六人角色与关系](docs/CHARACTER_DESIGN.md)：角色动机、行为倾向、15 组初始关系、独立认知及人物验证情境。
 
 ## 当前里程碑
 
