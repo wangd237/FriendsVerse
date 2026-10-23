@@ -5,7 +5,7 @@
 
 ## 项目状态
 
-**阶段：产品设计 / Story Prototype 需求规格已建立、功能尚未实现**（2026-10-23）。
+**阶段：产品设计 / Story Prototype 技术方案已形成、功能尚未实现**（2026-10-23）。
 
 本仓库目前用于沉淀和持续迭代产品需求；**尚无可运行的 FriendsVerse 应用，也未完成 Agent 模拟或剧集生成**。设计中的功能不应被视为已实现。
 
@@ -27,6 +27,7 @@
 - [Story Prototype 详细产品规格](docs/STORY_PROTOTYPE.md)：首个七集原型的角色、事件、叙事链路、关系证据与验收。
 - [Character Design：六人角色与关系](docs/CHARACTER_DESIGN.md)：角色动机、行为倾向、15 组初始关系、独立认知及人物验证情境。
 - [World & Interaction Design](docs/WORLD_INTERACTION.md)：社区场景、时段推进、主动社交、会面、有限对话与跨集连续性。
+- [Story Prototype Technical Design](docs/STORY_PROTOTYPE_TECHNICAL_DESIGN.md)：推荐技术栈、模块/数据边界、执行及持久化流程、T0–T3 验收计划。
 
 ## 当前里程碑
 
