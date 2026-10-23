@@ -62,3 +62,5 @@ class Episode(BaseModel):
     world_version_to: int
     provider: str
     rejected_actions: list[str] = Field(default_factory=list)
+    # Prior committed event IDs actually made visible to each character.
+    prior_memory_ids: dict[str, list[str]] = Field(default_factory=dict)
