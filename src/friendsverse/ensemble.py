@@ -237,9 +237,12 @@ def _format_episode(number: int, day: int, events: list[Event], changes: list[di
 
 def simulate_day(
     original: WorldState, client: DecisionClient, provider: str,
+    actors_per_period: int = 6,
 ) -> tuple[WorldState, Episode]:
     if original.mode != "ensemble":
         raise ValueError("not an ensemble universe")
+    if not 1 <= actors_per_period <= len(ACTORS):
+        raise ValueError("actors_per_period must be from 1 to 6")
     work = deepcopy(original)
     events: list[Event] = []
     changes: list[dict] = []
@@ -253,11 +256,15 @@ def simulate_day(
     events.append(stimulus_event)
     _remember(work, stimulus_event)
 
-    for period in PERIODS:
-        # Stage 1: all six choose their own activity, without being teleported to a plot location.
-        # Stage 2: co-present people may choose another social action in the updated scene.
+    for period_index, period in enumerate(PERIODS):
+        # T3 can activate fewer characters per period to control live model cost.
+        # Rotate opportunities across characters; all six may act during each day.
+        scheduled = [
+            actor_order[(period_index * actors_per_period + i) % len(ACTORS)]
+            for i in range(actors_per_period)
+        ]
         for phase in ("intent", "encounter"):
-            for actor in actor_order:
+            for actor in scheduled:
                 if phase == "encounter" and sum(v == work.positions[actor] for v in work.positions.values()) < 2:
                     continue
                 perception = perceive(work, actor, period, events)
