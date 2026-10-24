@@ -46,6 +46,8 @@ def main() -> None:
             before = store.load(args.universe)
             if args.command == "season" and (before.mode != "ensemble" or not 1 <= args.days <= 7):
                 raise ValueError("season requires an ensemble universe and --days from 1 to 7")
+            if args.command == "season" and before.episode_no + args.days > 7:
+                raise ValueError("season would exceed seven episodes; reduce --days")
             if args.actors_per_period is not None and not 1 <= args.actors_per_period <= 6:
                 raise ValueError("--actors-per-period must be from 1 to 6")
 
