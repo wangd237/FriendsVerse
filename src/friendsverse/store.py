@@ -37,8 +37,14 @@ class Store:
     def __exit__(self, *_args) -> None:
         self.conn.close()
 
-    def initialize(self, universe_id: str = "default") -> WorldState:
-        state = WorldState(universe_id=universe_id)
+    def initialize(self, universe_id: str = "default", mode: str = "duo") -> WorldState:
+        if mode == "ensemble":
+            from friendsverse.ensemble import new_ensemble
+            state = new_ensemble(universe_id)
+        elif mode == "duo":
+            state = WorldState(universe_id=universe_id)
+        else:
+            raise ValueError("mode must be duo or ensemble")
         with self.conn:
             self.conn.execute(
                 "INSERT INTO universes(universe_id,version,snapshot) VALUES (?,?,?)",

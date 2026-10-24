@@ -1,8 +1,8 @@
-name: T0-T1 tests
+name: T0-T2 tests
 
 on:
   push:
-    branches: [main, feat/story-prototype-t0-t1]
+    branches: [main, feat/story-prototype-t0-t1, feat/t2-full-slice]
   pull_request:
 
 jobs:
@@ -23,3 +23,9 @@ jobs:
           python -m friendsverse next --db /tmp/friendsverse-smoke.db --provider fake
           python -m friendsverse next --db /tmp/friendsverse-smoke.db --provider fake
           python -m friendsverse inspect --db /tmp/friendsverse-smoke.db
+      - name: T2 six-character fake smoke
+        run: |
+          python -m friendsverse init --mode ensemble --db /tmp/friendsverse-t2-smoke.db
+          python -m friendsverse next --provider fake --db /tmp/friendsverse-t2-smoke.db
+          python -m friendsverse next --provider fake --db /tmp/friendsverse-t2-smoke.db
+          python -m friendsverse inspect --db /tmp/friendsverse-t2-smoke.db
