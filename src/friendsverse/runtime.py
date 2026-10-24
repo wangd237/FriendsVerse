@@ -100,13 +100,36 @@ def remember(state: WorldState, event: Event) -> None:
             ))
 
 
-def format_episode(number: int, events: list[Event]) -> tuple[str, str]:
-    """A transparent transcript renderer; not a generative editorial Agent yet."""
+LOCATION_LABELS = {
+    "apt_chandler_joey": "Chandler & Joey's Apartment",
+    "hallway": "Hallway",
+    "central_perk": "Central Perk",
+}
+
+
+def format_episode(
+    number: int, events: list[Event], starting_location: str = "apt_chandler_joey"
+) -> tuple[str, str]:
+    """Render only executed events, with scenes at the event's ACTUAL location."""
     title = f"EP{number:02d} — An Evening at Home"
-    lines = [f"# {title}", "", "## SCENE 01 · Chandler & Joey's Apartment · Evening", ""]
+    lines = [f"# {title}", ""]
     if not events:
-        lines.append("*A quiet evening. No conversation occurred.*")
+        location = LOCATION_LABELS.get(starting_location, starting_location)
+        lines.extend([
+            f"## SCENE 01 · {location} · Evening",
+            "",
+            "*A quiet evening. No conversation occurred.*",
+        ])
+        return title, "\n".join(lines).rstrip() + "\n"
+
+    scene_location = None
+    scene_number = 0
     for event in events:
+        if event.location != scene_location:
+            scene_number += 1
+            scene_location = event.location
+            display_location = LOCATION_LABELS.get(scene_location, scene_location)
+            lines.extend([f"## SCENE {scene_number:02d} · {display_location} · Evening", ""])
         if event.type == "speak":
             lines.append(f"**{event.actor.upper()}**: {event.text}")
         else:
@@ -137,7 +160,7 @@ def simulate(
         if event:
             events.append(event)
             remember(work, event)
-    title, script = format_episode(original.episode_no + 1, events)
+    title, script = format_episode(original.episode_no + 1, events, original.positions['joey'])
     episode = Episode(
         number=original.episode_no + 1, title=title, script=script,
         events=events, world_version_from=original.version,
