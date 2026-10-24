@@ -44,7 +44,11 @@ python -m friendsverse next --db friendsverse-live.db --provider live
 python -m friendsverse inspect --db friendsverse-live.db
 ~~~
 
-也可以在当前 GitHub 仓库的 Actions secrets 中配置以上字段后，手动运行 **T1 live LLM validation (manual)**。该工作流不会因普通 push 自动消耗真实模型 Token。它验证两集均来自 live 适配器、均有真实对白和可恢复的个人记忆，并检查第二集 `prior_memory_ids` 是否包含上一集的真实事件 ID。这能证明前情已经进入角色的输入上下文，**但不等于模型确实理解或利用了前情**；角色辨识度和前情引用的自然程度仍需人工审查剧本。
+也可以在当前 GitHub 仓库设置 **Actions Secret** `LLM_API_KEY`。模型名称可以设置为仓库 **Actions Variable** `LLM_MODEL_ID`、同名 Secret，或者在手动运行时填写 `model_id` 输入参数。可选 `LLM_BASE_URL` 可以保存在 Actions Variable 或 Secret。
+
+**2026-10-24 真实运行记录**：<https://github.com/wangd237/FriendsVerse/actions/runs/40076729623> 在环境检查阶段失败；日志中 `LLM_API_KEY` 与 `LLM_BASE_URL` 已存在，但 `LLM_MODEL_ID` 为空，因此 **没有发生真实模型调用、没有生成剧集**。这一轮修改新增模型 ID 的手动输入/Variables 回退，避免再次被无须保密的模型名称卡住。
+
+配置后手动运行 **T1 live LLM validation (manual)**，可在 `Run workflow` 对话框填写模型名称。该工作流不会因普通 push 自动消耗真实模型 Token。它验证两集均来自 live 适配器、均有真实对白和可恢复的个人记忆，并检查第二集 `prior_memory_ids` 是否包含上一集的真实事件 ID。这能证明前情已经进入角色的输入上下文，**但不等于模型确实理解或利用了前情**；角色辨识度和前情引用的自然程度仍需人工审查剧本。
 
 ## 2026-10-24 主链路修正与验收证据
 
