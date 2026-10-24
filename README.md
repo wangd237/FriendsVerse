@@ -5,9 +5,9 @@
 
 ## 项目状态
 
-**阶段：T0 双角色原型已实现并通过 CI；T1 真实 LLM 仍待实际验收**（2026-10-23）。
+**阶段：T0 已完成；T1 双角色真实 LLM 两集技术验收通过，内容和关系演化仍未完成**（2026-10-24）。
 
-本仓库已经加入第一阶段**两角色 T0/T1 最小代码**，包括 CLI、动作校验、独立记忆、SQLite 持久化和可选真实 LLM 适配器。尚未实现六角色完整故事世界、关系演化引擎或正式剧集剪辑。确定性 FakeClient 测试不代表真实 LLM 已通过验收。
+本仓库已经加入第一阶段**两角色 T0/T1 最小代码**，包括 CLI、动作校验、独立记忆、SQLite 持久化和可选真实 LLM 适配器。尚未实现六角色完整故事世界、关系演化引擎或正式剧集剪辑。已完成首次真实 LLM 双集运行并验证跨集记忆输入（[验收报告](docs/T1_LIVE_VALIDATION_REPORT.md)）；但不代表六角色自主世界或剧集故事质量已经达到产品验收。
 
 ## 产品概念
 
@@ -29,8 +29,7 @@
 - [World & Interaction Design](docs/WORLD_INTERACTION.md)：社区场景、时段推进、主动社交、会面、有限对话与跨集连续性。
 - [Story Prototype Technical Design](docs/STORY_PROTOTYPE_TECHNICAL_DESIGN.md)：T0–T3 工程模块、数据协议和实施顺序。
 - [Coding T0–T1 实施说明](docs/T0_T1_IMPLEMENTATION.md)：已实现范围、安装运行、真实 LLM 验收与未完成能力。
-- [Story Prototype Technical Design](docs/STORY_PROTOTYPE_TECHNICAL_DESIGN.md)：推荐技术栈、模块/数据边界、执行及持久化流程、T0–T3 验收计划。
-
+- [T1 真实 LLM 验收报告](docs/T1_LIVE_VALIDATION_REPORT.md)：真实双集剧本、Token、记忆延续、问题分析及 T2 入口建议。
 ## 运行最小双人演示
 
 Python 3.11+：
@@ -49,7 +48,7 @@ python -m friendsverse inspect --db friendsverse.db
 ## 当前里程碑
 
 1. **产品需求基线**：固化定位、观看方式、优先级和核心用户流程（文档阶段）。
-2. **Story Prototype**：T0 两角色规则/记忆闭环完成；T1 真实模型效果待验收；T2 六人单集和 T3 七集验证尚未实现。
+2. **Story Prototype**：T0 规则/记忆闭环完成；T1 两集真实模型技术验收通过（故事质量尚未完成产品验收）；T2 六人单集和 T3 七集验证尚未实现。
 3. **MVP Web 应用**：剧集大厅、剧本阅读器、关系视图、手动逐集推进。
 4. **体验验证与迭代**：基于角色辨识度、幽默度、连贯性、关系可信度和追剧意愿改进。
 
