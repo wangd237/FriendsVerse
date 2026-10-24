@@ -1,0 +1,64 @@
+name: T3 seven-episode live experiment (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      model_id:
+        description: "Model ID (blank uses repository Variable or Secret)"
+        required: false
+        type: string
+      days:
+        description: "Number of episodes to generate (1–7; use 1 for a short first trial)"
+        required: true
+        default: "7"
+        type: choice
+        options: ["1", "2", "3", "4", "5", "6", "7"]
+      actors_per_period:
+        description: "Active characters per period (2 or 3 recommended to limit model calls)"
+        required: true
+        default: "3"
+        type: choice
+        options: ["2", "3", "4", "5", "6"]
+
+jobs:
+  season:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      LLM_MODEL_ID: ${{ inputs.model_id || vars.LLM_MODEL_ID || secrets.LLM_MODEL_ID }}
+      LLM_BASE_URL: ${{ vars.LLM_BASE_URL || secrets.LLM_BASE_URL }}
+      DAYS: ${{ inputs.days }}
+      ACTORS_PER_PERIOD: ${{ inputs.actors_per_period }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e .
+      - name: Check model configuration
+        run: |
+          test -n "$LLM_API_KEY" || (echo "::error::Missing LLM_API_KEY"; exit 1)
+          test -n "$LLM_MODEL_ID" || (echo "::error::Missing LLM_MODEL_ID"; exit 1)
+      - name: Generate explicitly requested run of up to seven episodes
+        run: |
+          python -m friendsverse init --mode ensemble --db /tmp/friendsverse-t3.db
+          python -m friendsverse season --provider live \
+            --days "$DAYS" --actors-per-period "$ACTORS_PER_PERIOD" \
+            --db /tmp/friendsverse-t3.db --out /tmp/t3-review
+          python -m friendsverse inspect --db /tmp/friendsverse-t3.db
+      - name: Export report also when run was interrupted
+        if: always()
+        run: |
+          if [ -f /tmp/friendsverse-t3.db ]; then
+            python -m friendsverse report --db /tmp/friendsverse-t3.db --out /tmp/t3-review
+          fi
+      - name: Upload readable scripts, event evidence, and restartable state
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t3-season-review
+          path: |
+            /tmp/t3-review/
+            /tmp/friendsverse-t3.db
+          if-no-files-found: ignore

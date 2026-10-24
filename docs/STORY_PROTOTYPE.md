@@ -1,8 +1,8 @@
 # FriendsVerse — Story Prototype 详细产品规格
 
-**版本**：v0.4.0（技术方案衔接）  
+**版本**：v0.5.0（七集实验衔接）  
 **日期**：2026-10-23  
-**状态**：待开发；不代表已完成模拟或验收  
+**状态**：已有六角色单日模拟与七集实验工具；尚未取得真实七集连续性/用户体验验收  
 **上位需求**：[PRD.md](PRD.md) · 角色设计：[CHARACTER_DESIGN.md](CHARACTER_DESIGN.md) · 世界与交互：[WORLD_INTERACTION.md](WORLD_INTERACTION.md) · 技术设计：[STORY_PROTOTYPE_TECHNICAL_DESIGN.md](STORY_PROTOTYPE_TECHNICAL_DESIGN.md) · 决策来源：[DECISIONS.md](DECISIONS.md)
 
 > 本文是第一阶段 Story Prototype 的实施前产品规格，用于回答「什么内容应由 Agent 自主产生、观众最后看到什么、怎样评估体验」。具体模型、数据库、调度框架仍不在本阶段锁定。
@@ -182,6 +182,8 @@ Web 剧集大厅和关系图可暂用文档/简单查看器替代；不做视频
 
 ## 9. 质量验收与 Go / No-Go
 
+实验执行与审查报告入口详见 **[T3 七集连续性实验](T3_SEVEN_EPISODE_EXPERIMENT.md)**。机械上多集发生同一关系的事件，不等于真正完成三集故事线；需人工结合剧本与源事件共同判断。
+
 ### 9.1 事实与运行门槛（硬门槛）
 - 同一 Universe 连续产出 7 集；生成失败可恢复且不重复发布。
 - 关键动作/对白都有可定位的源事件；重要关系变化都有证据。
@@ -212,6 +214,7 @@ Web 剧集大厅和关系图可暂用文档/简单查看器替代；不做视频
 
 | 版本 | 日期 | 修改 |
 |---|---|---|
+| v0.5.0 | 2026-10-24 | 衔接 T3 七集批量实验与内容评估输出，保持产品目标和实现验证边界分离 |
 | v0.4.0 | 2026-10-23 | 关联 Story Prototype Technical Design，明确产品与技术规格分层，未启动实现 |
 | v0.3.0 | 2026-10-23 | 引用 World & Interaction Design，补充社交与会面机制的独立产品规格 |
 | v0.2.0 | 2026-10-23 | 增加 Character Design 链接，将人物细节与实验规则分层维护 |

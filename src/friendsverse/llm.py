@@ -67,6 +67,11 @@ class OpenAIClient:
             '{"type":"speak","text":"嗨"} or {"type":"wait"} or '
             '{"type":"move_to","target":"hallway"} or '
             '{"type":"do","target":"help_rehearse"}. '
+            "When choosing intent, consider personal goals and whether to visit friends. "
+            "When responding to an encounter, interact only with people actually present. "
+            "For a social do action always specify a recipient from present and a supported target, "
+            "for example help_friend, share_food, promise_help, fulfill_promise or apologize. "
+            "An unfulfilled promise is not automatically fulfilled. "
             "You may initiate a natural conversation, decline or stay quiet."
         )
         messages = [
