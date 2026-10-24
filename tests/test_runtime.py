@@ -108,3 +108,35 @@ def test_bad_actions_only_reject_without_state_change():
     assert after.positions == original.positions
     assert not episode.events
     assert len(episode.rejected_actions) == 4
+
+
+def test_scene_headers_follow_real_movement_not_hardcoded_apartment():
+    """Move intents can be valid even if they leave the apartment."""
+    class WalkAndTalk:
+        actions = [
+            Action(type="move_to", target="hallway"),
+            Action(type="move_to", target="hallway"),
+            Action(type="speak", text="We met in the hallway."),
+            Action(type="speak", text="Yes, not in the apartment."),
+        ]
+        def __init__(self):
+            self.index = 0
+        def choose(self, actor, perception):
+            value = self.actions[self.index]
+            self.index += 1
+            return value
+    after, ep = simulate(WorldState(), WalkAndTalk(), "fake")
+    assert [e.location for e in ep.events] == [
+        "apt_chandler_joey", "apt_chandler_joey", "hallway", "hallway"
+    ]
+    assert "SCENE 01 · Chandler & Joey's Apartment" in ep.script
+    assert "SCENE 02 · Hallway" in ep.script
+    assert ep.script.index("SCENE 02") < ep.script.index("We met in the hallway.")
+    assert after.positions == {"joey": "hallway", "chandler": "hallway"}
+
+
+def test_quiet_episode_uses_starting_location():
+    from friendsverse.runtime import format_episode
+    _, script = format_episode(5, [], starting_location="central_perk")
+    assert "Central Perk" in script
+    assert "Chandler & Joey's Apartment" not in script
