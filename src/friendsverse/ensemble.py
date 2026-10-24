@@ -309,7 +309,7 @@ class EnsembleFakeClient:
         if period == "afternoon" and perception["phase"] == "intent" and actor in ("rachel", "joey"):
             if perception["location"] != "central_perk":
                 return Action(type="move_to", target="central_perk")
-        if period == "evening" and actor == "chandler" and "joey" in present:
+        if period == "morning" and actor == "chandler" and "joey" in present:
             if perception["phase"] == "encounter":
                 return Action(type="do", target="help_rehearse", recipient="joey")
         if len(present) < 2:
