@@ -1,8 +1,8 @@
-name: T0-T2 tests
+name: T0-T3 tests
 
 on:
   push:
-    branches: [main, feat/story-prototype-t0-t1, feat/t2-full-slice]
+    branches: [main, feat/story-prototype-t0-t1, feat/t2-full-slice, feat/t3-seven-episode-experiment]
   pull_request:
 
 jobs:
@@ -29,3 +29,12 @@ jobs:
           python -m friendsverse next --provider fake --db /tmp/friendsverse-t2-smoke.db
           python -m friendsverse next --provider fake --db /tmp/friendsverse-t2-smoke.db
           python -m friendsverse inspect --db /tmp/friendsverse-t2-smoke.db
+      - name: T3 seven-episode continuity and export smoke
+        run: |
+          python -m friendsverse init --mode ensemble --db /tmp/fv-seven-day.db
+          python -m friendsverse season --days 7 --actors-per-period 3 \
+            --db /tmp/fv-seven-day.db --provider fake --out /tmp/fv-review
+          python -m friendsverse report --db /tmp/fv-seven-day.db --out /tmp/fv-review
+          python -m friendsverse inspect --db /tmp/fv-seven-day.db
+          test -s /tmp/fv-review/season-scripts.md
+          test -s /tmp/fv-review/season-summary.json
