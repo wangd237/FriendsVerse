@@ -44,3 +44,53 @@ jobs:
                   assert set(episodes[1].prior_memory_ids[actor]) & first_ids, f'{actor} did not receive prior episode memories'
               print('Live T1 transport and cross-episode memory checks passed. Review dialogue quality manually.')
           PY
+      - name: Export scripts and memory evidence for human T1 review
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from friendsverse.store import Store
+          db = Path('/tmp/fv-live.db')
+          if not db.exists():
+              print('No database generated; skipping review bundle.')
+          else:
+              with Store(db) as store:
+                  episodes = store.episodes()
+                  report = {
+                      'validation_scope': 'T1: two-character real-model conversation and prior-memory injection',
+                      'limitations': 'Does NOT prove autonomous storyline quality or semantic memory usage.',
+                      'episodes': [
+                          {
+                              'number': ep.number,
+                              'script': ep.script,
+                              'provider': ep.provider,
+                              'prior_memory_ids': ep.prior_memory_ids,
+                              'rejected_actions': ep.rejected_actions,
+                              'events': [
+                                  {
+                                      'id': ev.id,
+                                      'actor': ev.actor,
+                                      'type': ev.type,
+                                      'location': ev.location,
+                                      'text': ev.text,
+                                      'witnesses': ev.witnesses,
+                                  }
+                                  for ev in ep.events
+                              ],
+                          }
+                          for ep in episodes
+                      ],
+                  }
+                  Path('/tmp/fv-live-review.json').write_text(
+                      json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8'
+                  )
+                  print('Exported', len(episodes), 'episode(s) for human review.')
+          PY
+      - name: Upload T1 review bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t1-live-review
+          path: /tmp/fv-live-review.json
+          if-no-files-found: ignore
