@@ -5,9 +5,9 @@
 
 ## 项目状态
 
-**阶段：T0 已完成；T1 双角色真实 LLM 两集技术验收通过，内容和关系演化仍未完成**（2026-10-24）。
+**阶段：T0/T1 已验收；T2 六角色端到端代码正在验证，尚未通过真实六人剧情验收**（2026-10-24）。
 
-本仓库已经加入第一阶段**两角色 T0/T1 最小代码**，包括 CLI、动作校验、独立记忆、SQLite 持久化和可选真实 LLM 适配器。尚未实现六角色完整故事世界、关系演化引擎或正式剧集剪辑。已完成首次真实 LLM 双集运行并验证跨集记忆输入（[验收报告](docs/T1_LIVE_VALIDATION_REPORT.md)）；但不代表六角色自主世界或剧集故事质量已经达到产品验收。
+本仓库已经加入第一阶段**两角色 T0/T1 最小代码**，包括 CLI、动作校验、独立记忆、SQLite 持久化和可选真实 LLM 适配器。T2 已加入六角色三时段的简化世界、事件驱动的有向关系更新与剧本输出；真实六人样片及更成熟的剪辑仍待验收。已完成首次真实 LLM 双集运行并验证跨集记忆输入（[验收报告](docs/T1_LIVE_VALIDATION_REPORT.md)）；但不代表六角色自主世界或剧集故事质量已经达到产品验收。
 
 ## 产品概念
 
@@ -30,6 +30,7 @@
 - [Story Prototype Technical Design](docs/STORY_PROTOTYPE_TECHNICAL_DESIGN.md)：T0–T3 工程模块、数据协议和实施顺序。
 - [Coding T0–T1 实施说明](docs/T0_T1_IMPLEMENTATION.md)：已实现范围、安装运行、真实 LLM 验收与未完成能力。
 - [T1 真实 LLM 验收报告](docs/T1_LIVE_VALIDATION_REPORT.md)：真实双集剧本、Token、记忆延续、问题分析及 T2 入口建议。
+- [T2 六角色端到端最小实现](docs/T2_MINIMUM_SLICE.md)：六人、三时段、自主行动、社会事件、关系更新、真实模型验收。
 ## 运行最小双人演示
 
 Python 3.11+：
@@ -45,10 +46,20 @@ python -m friendsverse inspect --db friendsverse.db
 
 **注意：fake 输出是固定台词，仅用于 T0 运行/记忆测试。** 真实 T1 请配置本机环境变量或当前仓库 GitHub Actions secrets 的 LLM_API_KEY、LLM_MODEL_ID（可选 LLM_BASE_URL），运行两次 `--provider live`。详细步骤见 [实施说明](docs/T0_T1_IMPLEMENTATION.md)。
 
+## 运行六角色世界（T2）
+
+```bash
+python -m friendsverse init --mode ensemble --db friendsverse-six.db
+python -m friendsverse next --provider fake --db friendsverse-six.db
+python -m friendsverse inspect --db friendsverse-six.db
+```
+
+Fake 只用于验证工程链路。真实六角色剧情请使用 `--provider live`，或通过 [T2 ensemble live smoke](https://github.com/wangd237/FriendsVerse/actions/workflows/t2-live-validation.yml) 手动运行后查看事件/剧本产物。
+
 ## 当前里程碑
 
 1. **产品需求基线**：固化定位、观看方式、优先级和核心用户流程（文档阶段）。
-2. **Story Prototype**：T0 规则/记忆闭环完成；T1 两集真实模型技术验收通过（故事质量尚未完成产品验收）；T2 六人单集和 T3 七集验证尚未实现。
+2. **Story Prototype**：T0 规则/记忆闭环完成；T1 两集真实模型技术验收通过（故事质量尚未完成产品验收）；T2 六人单集最小代码已实现、真实质量待验收；T3 七集验证尚未开始。
 3. **MVP Web 应用**：剧集大厅、剧本阅读器、关系视图、手动逐集推进。
 4. **体验验证与迭代**：基于角色辨识度、幽默度、连贯性、关系可信度和追剧意愿改进。
 
