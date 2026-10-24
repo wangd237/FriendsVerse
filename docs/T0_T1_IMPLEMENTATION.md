@@ -2,7 +2,7 @@
 
 **阶段**：最小双人垂直切片（不是完整的 FriendsVerse）  
 **实现分支**：feat/story-prototype-t0-t1（已通过 PR #1 合并到 main）  
-**日期**：2026-10-23
+**更新日期**：2026-10-24
 
 ## 已实现
 
@@ -31,6 +31,9 @@ python -m friendsverse inspect --db friendsverse.db
 
 ## T1：真实 LLM 的两集连续互动
 
+**T1 技术验收已通过：** 2026-10-24 <https://github.com/wangd237/FriendsVerse/actions/runs/40078682932> 成功生成并提交两集真实模型对白，第二集接续第一集的排练主题，双方各读取到来自第一集的 4 条目击记忆。详见 [T1 真实验收报告](T1_LIVE_VALIDATION_REPORT.md)。该结果**不代表**关系演化或七集故事已完成。
+
+
 在系统环境变量中设置以下两个必填字段（从不提交 API Key）：
 
 - LLM_API_KEY：可用的模型服务 Key。
@@ -56,7 +59,7 @@ python -m friendsverse inspect --db friendsverse-live.db
 - 补充自动化测试：模拟两人先后移至走廊，然后真实在场交谈；检查事件的位置与剧本场景匹配。没有对白时显示角色所在的起始地点。
 - 手动 T1 workflow 增加 `t1-live-review` 构建产物（JSON），保存两集**已经执行**的对白、动作、现场见证者、前情记忆来源 ID 及被拒绝的动作。
 - **可验证的结论范围**：自动检查第二集收到第一集记忆；必须由阅读真实对话的人判断是否有自然的前情回应。不可将仅注入记忆误称为模型理解或关系演化。
-- 当前尚未观察到实际发起的手动 T1 live workflow；只有 T0 CI 成功记录。手动工作流需要本仓库自身配置有效 Secrets 并由有权限的用户触发。
+- **历史说明**：在本次修正刚合并时，T1 尚未运行。此项状态已由 2026-10-24 成功的真实验收 Run #40078682932 替代；当前已经具备可复盘的真实剧本与事件证据。
 - 这一轮只补齐 T1 的一致性和可观察性，没有增加世界模拟、长期关系演化或新 Agent 架构。
 
 ## T0/T1 验收边界
@@ -68,7 +71,7 @@ python -m friendsverse inspect --db friendsverse-live.db
 | 状态读写、版本检查与事务 | 已编码 | pytest |
 | 两集 FakeClient 连续运行 | 已编码 | Actions fake smoke |
 | OpenAI-compatible client 的格式错误重试 | 已编码 | mock transport test |
-| 两集真实 LLM 自主互动 | 需要有效密钥实际运行 | 手动 live workflow；未完成则不能宣称 T1 通过 |
+| 两集真实 LLM 自主互动 | **已运行并通过基础技术验收** | [Run #40078682932](https://github.com/wangd237/FriendsVerse/actions/runs/40078682932) 和 [评估报告](T1_LIVE_VALIDATION_REPORT.md)；仅说明对话与跨集上下文，不证明关系演化 |
 | 结构化承诺抽取与关系更新 | 未实现 | T2+，目前只保留目击对话记忆 |
 | 六人世界、三时段、真正的剧集剪辑与七集验收 | 未实现 | T2/T3 |
 
@@ -76,4 +79,4 @@ python -m friendsverse inspect --db friendsverse-live.db
 
 现在仅验证两名角色的会面与记忆。世界只有一个真实社交场景，脚本是原始对话格式，并未实现 **Character→Commitment** 结构化抽取、独立主观解释、关系变化引擎或长篇叙事编辑。因此本版本不应被当作成熟的 AI 情景喜剧生成器。
 
-只有完成真实 T1 并明确其局限后，再扩展六位角色和 World Engine。切勿提前引入 DAG、多 Agent 主管、GraphRAG、复杂记忆向量库或视频网站前端。
+真实 T1 已完成基础技术验证，局限已记录在 [T1 真实验收报告](T1_LIVE_VALIDATION_REPORT.md)。下一步可以按报告提出的最小 T2 边界扩展六位角色和 World Engine。切勿提前引入 DAG、多 Agent 主管、GraphRAG、复杂记忆向量库或视频网站前端。
